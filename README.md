@@ -35,6 +35,6 @@ This app is trying to make it a little bit easier, by creating relative paths di
 
 ### Credits
 
-This project is inspired by [SVG Wave]('https://github.com/anup-a/svgwave').  
+This project is inspired by [SVG Wave](https://github.com/anup-a/svgwave).  
 Looking at their code helped me figure out how to generate waves.  
 I'm using the same algorithm for creating bezier splines.
