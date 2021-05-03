@@ -50,7 +50,7 @@ function App() {
             d={p.d}
             key={index}
             stroke={p.strokeColor}
-            fill={p.fill}
+            fill={isClipPath ? colors[0] : p.fill}
             className='transition-all duration-300 ease-in-out delay-150'
           />
         );

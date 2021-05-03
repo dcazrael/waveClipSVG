@@ -182,7 +182,7 @@ class Waves {
       height: this.props.isClipPath ? 1 : this.props.height,
       xmlns: svgNS,
       paths,
-      rotateAdjustment: this.heightAdjustment / 100,
+      rotateAdjustment: this.heightAdjustment / 1000,
     };
   }
 }

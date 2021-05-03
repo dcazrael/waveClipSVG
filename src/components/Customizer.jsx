@@ -20,7 +20,7 @@ const Customizer = ({
   const isInitialMount = useRef(true);
 
   useEffect(() => {
-    if (animateRotation) return;
+    if (animateRotation || animateClipping) return;
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
@@ -46,7 +46,6 @@ const Customizer = ({
       isInitialMount.current = false;
       return;
     }
-    setAnimateClipping(true);
     onCanvasSwitch();
   }, [waveConfig]);
 
@@ -98,41 +97,44 @@ const Customizer = ({
           onChange={(e) => setHeight(e.target.value)}
         />
       </div>
-      <button
-        className='flex items-center justify-center p-2 mt-6 font-bold text-white transition duration-300 ease-in-out bg-purple-700 rounded focus:outline-none hover:bg-purple-600'
-        onClick={handleWaveRotation}
-        onAnimationEnd={() => setAnimateRotation(false)}
-      >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 512 512'
-          className={`w-8 h-8 fill-current text-white ${
-            animateRotation && 'animate-spin-once'
-          }`}
+      <div className='flex space-x-4'>
+        <button
+          className='flex items-center justify-center p-2 mt-6 font-bold text-white transition duration-300 ease-in-out bg-purple-700 rounded focus:outline-none hover:bg-purple-600'
+          onClick={handleWaveRotation}
+          onAnimationEnd={() => setAnimateRotation(false)}
+          title='Rotate'
         >
-          <path d={rotationIcon} />
-        </svg>
-      </button>
-
-      <button
-        className='flex items-center justify-center p-2 mt-6 font-bold text-white transition duration-300 ease-in-out bg-purple-700 rounded focus:outline-none hover:bg-purple-600'
-        onClick={() => setIsClipPath(!isClipPath)}
-        onAnimationEnd={() => setAnimateClipping(false)}
-      >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 90 90'
-          className={`w-8 h-8 fill-current text-white ${
-            animateClipping && 'animate-spin-once'
-          }`}
-        >
-          <path d={clippingIcon} />
-          <polygon
+          <svg
             xmlns='http://www.w3.org/2000/svg'
-            points='58.506,47.107 70.583,59.185 45,84.768 19.417,59.185 31.494,47.107 29.88,45.494 16.19,59.185 45,87.994    73.81,59.185 60.119,45.494  '
-          />
-        </svg>
-      </button>
+            viewBox='0 0 512 512'
+            className={`w-8 h-8 fill-current text-white ${
+              animateRotation && 'animate-spin-once'
+            }`}
+          >
+            <path d={rotationIcon} />
+          </svg>
+        </button>
+        <button
+          className='flex items-center justify-center p-2 mt-6 font-bold text-white transition duration-300 ease-in-out bg-purple-700 rounded focus:outline-none hover:bg-purple-600'
+          onClick={() => setIsClipPath(!isClipPath)}
+          onAnimationEnd={() => setAnimateClipping(false)}
+          title='Clip path'
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 90 90'
+            className={`w-8 h-8 fill-current text-white ${
+              animateClipping && 'animate-spin-once'
+            }`}
+          >
+            <path d={clippingIcon} />
+            <polygon
+              xmlns='http://www.w3.org/2000/svg'
+              points='58.506,47.107 70.583,59.185 45,84.768 19.417,59.185 31.494,47.107 29.88,45.494 16.19,59.185 45,87.994    73.81,59.185 60.119,45.494  '
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };

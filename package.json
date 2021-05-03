@@ -16,6 +16,7 @@
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.13",
     "tailwindcss": "^2.1.2",
-    "vite": "^2.2.3"
+    "vite": "^2.2.3",
+    "vite-plugin-react-svg": "^0.2.0"
   }
 }
