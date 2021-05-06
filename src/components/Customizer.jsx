@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { HslColorPicker } from 'react-colorful';
+import { COLOR, HEIGHT_ARR } from '../CONSTANTS.js';
 import { clippingIcon, rotationIcon } from './SvgPaths';
-
-const HEIGHT_ARR = [300, 400, 500, 600, 700];
 
 const Customizer = ({
   waveConfig,
@@ -17,7 +17,22 @@ const Customizer = ({
   const [animateClipping, setAnimateClipping] = useState(false);
   const [rotate, setRotate] = useState(true);
   const [height, setHeight] = useState(2);
+  const [HSL, setHSL] = useState(`${COLOR.h} ${COLOR.s}% ${COLOR.l}%`);
+
   const isInitialMount = useRef(true);
+
+  const presetColors = [
+    { h: 0, s: 100, l: 84 },
+    { h: 33, s: 100, l: 82 },
+    { h: 62, s: 100, l: 86 },
+    { h: 110, s: 100, l: 87 },
+    { h: 185, s: 100, l: 80 },
+    { h: 217, s: 100, l: 81 },
+    { h: 249, s: 100, l: 85 },
+    { h: 300, s: 100, l: 89 },
+    { h: 60, s: 100, l: 99 },
+    { h: 251, s: 83, l: 72 },
+  ];
 
   useEffect(() => {
     if (animateRotation || animateClipping) return;
@@ -30,6 +45,7 @@ const Customizer = ({
       waves,
       layers,
       height: HEIGHT_ARR[height],
+      fill: HSL,
       isClipPath,
     });
   }, [waves, layers, height, animateRotation, isClipPath]);
@@ -49,8 +65,24 @@ const Customizer = ({
     onCanvasSwitch();
   }, [waveConfig]);
 
+  const [color, setColor] = useState({
+    h: COLOR.h,
+    s: COLOR.s,
+    l: COLOR.l,
+  });
+
+  const onChange = (color) => {
+    setColor(color);
+    const newColor = `${color.h} ${color.s}% ${color.l}%`;
+
+    onWaveConfig({
+      fill: newColor,
+    });
+    setHSL(newColor);
+  };
+
   return (
-    <div className='w-full'>
+    <div className='flex flex-col w-full h-full'>
       <div className='flex flex-col justify-center w-full mt-6 text-gray-700 dark:text-gray-100'>
         <label htmlFor='waves' className='my-2 text-xl font-bold text-center'>
           Waves
@@ -75,7 +107,7 @@ const Customizer = ({
           name='layers'
           id='layers'
           min={1}
-          max={6}
+          max={5}
           value={layers}
           className='w-full h-3 bg-gray-500 rounded-lg appearance-none slider-thumb'
           onChange={(e) => setLayers(e.target.value)}
@@ -97,7 +129,16 @@ const Customizer = ({
           onChange={(e) => setHeight(e.target.value)}
         />
       </div>
-      <div className='flex space-x-4'>
+
+      <div className='relative flex space-x-4'>
+        <div className='flex items-center justify-center p-2 mt-6 font-bold text-gray-700 transition duration-300 ease-in-out bg-purple-700 rounded shadow-sm cursor-pointer focus:outline-none hover:bg-purple-600'>
+          <div
+            className='w-8 h-8 border border-white rounded-sm'
+            style={{
+              background: `hsl(${color.h} ${color.s}% ${color.l}% / 1)`,
+            }}
+          />
+        </div>
         <button
           className='flex items-center justify-center p-2 mt-6 font-bold text-white transition duration-300 ease-in-out bg-purple-700 rounded focus:outline-none hover:bg-purple-600'
           onClick={handleWaveRotation}
@@ -134,6 +175,23 @@ const Customizer = ({
             />
           </svg>
         </button>
+      </div>
+      <div className='flex flex-grow mt-6 space-x-4'>
+        <div className='w-4/5 colorPicker'>
+          <HslColorPicker color={color} onChange={onChange} />
+        </div>
+        <div className='grid grid-cols-2 gap-2 place-items-center'>
+          {presetColors.map((presetColor) => (
+            <button
+              key={presetColor}
+              className='w-6 h-6 rounded-sm'
+              style={{
+                background: `hsl(${presetColor.h} ${presetColor.s}% ${presetColor.l}%)`,
+              }}
+              onClick={() => onChange(presetColor)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

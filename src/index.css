@@ -43,3 +43,24 @@ code {
 
   @apply w-6 h-6 bg-gray-600 border border-gray-800 border-solid rounded-full appearance-none cursor-not-allowed;
 }
+
+::-webkit-color-swatch-wrapper {
+  @apply p-0;
+}
+
+::-webkit-color-swatch {
+  border-color: white;
+}
+
+.colorPicker .react-colorful {
+  @apply w-full h-full;
+}
+.colorPicker .react-colorful__saturation {
+  @apply rounded-t-md;
+}
+.colorPicker .react-colorful__hue {
+  @apply rounded-b-md;
+}
+.colorPicker .react-colorful__hue-pointer {
+  @apply w-1 h-4 rounded-full;
+}

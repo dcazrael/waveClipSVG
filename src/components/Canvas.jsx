@@ -1,9 +1,9 @@
 import React from 'react';
+import { OPACITY } from '../CONSTANTS.js';
 
 const Canvas = ({ svgData, flip, isClipPath }) => {
   const { height, xmlns, paths, width } = svgData;
   const cWidth = width / 2;
-  console.log(svgData.rotateAdjustment);
   const cHeight = height / 2;
 
   const transformData = `rotate(-180 ${cWidth} ${cHeight})`;
@@ -25,7 +25,7 @@ const Canvas = ({ svgData, flip, isClipPath }) => {
                   d={p.d}
                   key={index}
                   stroke={p.strokeColor}
-                  fill={p.fill}
+                  fill='hsl(251 83% 72% 1)'
                   className='transition-all duration-300 ease-in-out delay-150'
                   transform={flip ? transformData : p.transform}
                 />
@@ -40,7 +40,7 @@ const Canvas = ({ svgData, flip, isClipPath }) => {
               d={p.d}
               key={index}
               stroke={p.strokeColor}
-              fill={p.fill}
+              fill={`hsl(${p.fill} / ${OPACITY[paths.length - index - 1]})`}
               className='transition-all duration-300 ease-in-out delay-150'
               transform={flip ? transformData : p.transform}
             />

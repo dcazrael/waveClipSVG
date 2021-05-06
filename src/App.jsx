@@ -4,6 +4,7 @@ import Background from './components/Background';
 import Canvas from './components/Canvas';
 import Customizer from './components/Customizer';
 import Navbar from './components/Navbar';
+import { COLOR, HEIGHT_ARR, OPACITY } from './CONSTANTS.js';
 
 function App() {
   const width = 1440;
@@ -11,20 +12,15 @@ function App() {
   const [flip, setFlip] = useState(false);
   const [isClipPath, setIsClipPath] = useState(false);
 
-  const opacity = '40%';
-
-  const [colors, setColors] = useState([
-    `hsla(251,83%,72%, ${opacity})`,
-    `hsla(313,83%,70%, ${opacity})`,
-    `hsla(340,100%,75%, ${opacity})`,
-    `hsla(16,100%,75%, ${opacity})`,
-    `hsla(40,100%,69%, ${opacity})`,
-    `hsla(60,92%,71%, ${opacity})`,
-  ]);
-
   const options = isClipPath
     ? { waves: 5, isClipPath }
-    : { waves: 5, layers: 3, width, height: 400, fill: colors[1] };
+    : {
+        waves: 5,
+        layers: 3,
+        width,
+        height: HEIGHT_ARR[1],
+        fill: `${COLOR.h} ${COLOR.s}% ${COLOR.l}%`,
+      };
 
   const [wave, setWave] = useState(options);
 
@@ -50,7 +46,11 @@ function App() {
             d={p.d}
             key={index}
             stroke={p.strokeColor}
-            fill={isClipPath ? colors[0] : p.fill}
+            fill={
+              isClipPath
+                ? 'hsl(251 83% 72% 1)'
+                : `hsl(${p.fill} / ${OPACITY[paths.length - index - 1]})`
+            }
             className='transition-all duration-300 ease-in-out delay-150'
           />
         );
