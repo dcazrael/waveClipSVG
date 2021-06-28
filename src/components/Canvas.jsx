@@ -1,7 +1,7 @@
 import React from 'react';
 import { OPACITY } from '../CONSTANTS.js';
 
-const Canvas = ({ svgData, flip, isClipPath }) => {
+const Canvas = ({ svgData, flip, isClipPath, waveColor }) => {
   const { height, xmlns, paths, width } = svgData;
   const cWidth = width / 2;
   const cHeight = height / 2;
@@ -13,8 +13,9 @@ const Canvas = ({ svgData, flip, isClipPath }) => {
       xmlns={xmlns}
       height='100%'
       width='100%'
-      className='transition duration-300 ease-in-out delay-150'
+      className='transition-all duration-300 ease-in-out delay-150'
       viewBox={`0 0 ${width} ${height}`}
+      id='canvasWave'
     >
       {isClipPath ? (
         <defs>
@@ -40,7 +41,7 @@ const Canvas = ({ svgData, flip, isClipPath }) => {
               d={p.d}
               key={index}
               stroke={p.strokeColor}
-              fill={`hsl(${p.fill} / ${OPACITY[paths.length - index - 1]})`}
+              fill={`${waveColor}${OPACITY[paths.length - index - 1]}`}
               className='transition-all duration-300 ease-in-out delay-150'
               transform={flip ? transformData : p.transform}
             />
@@ -50,7 +51,7 @@ const Canvas = ({ svgData, flip, isClipPath }) => {
     </svg>
   );
   return (
-    <div className='relative z-10 w-4/5 overflow-hidden bg-gray-100 dark:bg-gray-600 sm:shadow-lg sm:rounded-md sm:m-5 sm:w-7/10 md:w-3/5 h-1/5 sm:h-4/5 dark:bg-darkish-black dark:text-white'>
+    <div className='relative z-10 w-4/5 overflow-hidden bg-gray-100 dark:bg-gray-600 sm:shadow-lg sm:rounded-md sm:m-5 sm:w-7/10 md:w-3/5 h-1/5 sm:h-4/5 dark:text-white'>
       {isClipPath ? (
         <>
           <img

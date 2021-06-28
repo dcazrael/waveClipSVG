@@ -1,3 +1,14 @@
-export const OPACITY = [1, 0.8, 0.6, 0.4, 0.2];
-export const COLOR = { h: 251, s: 83, l: 72 };
+export const OPACITY = ['ff', 'bb', '88', '66', '44'];
 export const HEIGHT_ARR = [300, 400, 500, 600, 700];
+export const COLORS = [
+  '#1e3888',
+  '#47a8bd',
+  '#f5e663',
+  '#ffad69',
+  '#9c3848',
+  '#e8e1ef',
+  '#d972ff',
+  '#f5cac3',
+  '#f28482',
+  '#927cf3',
+];
